@@ -1,0 +1,38 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.SchoolMapper">
+    <resultMap id="coursemap" type="com.example.demo.entity.Course">
+        <id property="id" column="id"/>
+        <result property="course" column="course"/>
+        <result property="classroom" column="classromm"/>
+        <association property="teacher" javaType="com.example.demo.entity.Teacher">
+            <result property="id" column="id"/>
+            <result property="teacher" column="teacher"/>
+        </association>
+        <collection property="students" ofType="com.example.demo.entity.Student">
+            <id property="id" column="id"/>
+            <result property="studentName" column="studentName"/>
+            <result property="age" column="age"/>
+            <result property="address" column="address"/>
+            <result property="love" column="love"/>
+        </collection>
+
+
+
+    </resultMap>
+
+
+
+    <select id="findAll" resultMap="coursemap" >
+        SELECT s.studentName,s.address,s.age,s.love,c.course,c.classroom,t.teacher from student s JOIN course c ON s.course_id=c.id JOIN
+teacher t on c.teacher_id=t.id
+
+
+    </select>
+    <select id="findAll2" resultType="Map">
+       SELECT s.studentName,s.address,s.age,s.love,c.course,c.classroom,t.teacher from student s JOIN course c ON s.course_id=c.id JOIN
+teacher t on c.teacher_id=t.id
+    </select>
+
+</mapper>
